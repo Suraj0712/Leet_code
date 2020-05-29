@@ -1,0 +1,57 @@
+class Solution {
+public:
+    string reformat(string s) 
+    {
+        int len = s.length();
+        vector<int> int_index;
+        vector<int> char_index;
+        
+        for(int i=0; i<s.length(); i++)
+        {
+            if(!(s[i] >= 'a' && s[i] <= 'z'))
+            {
+                int_index.push_back(i);
+            }
+            else
+            {
+                char_index.push_back(i);
+            }
+        }
+        
+        // cout<<s.length()<<" "<<int_index.size()<<" "<<char_index.size()<<"\n";
+        string ret_string ="";
+        if(len%2 ==0 and int_index.size()==len/2)
+        {
+            for(int i=0; i<len/2; i++)
+            {
+                ret_string = ret_string +s[int_index[i]]+s[char_index[i]];
+            }
+            return ret_string;
+        }
+        else if (len%2 !=0 and (int_index.size()==(len+1)/2 or int_index.size()==(len-1)/2))
+        {
+            if(int_index.size()==(len+1)/2)
+            {
+                for(int i=0; i<(len-1)/2; i++)
+                {
+                    ret_string = ret_string +s[int_index[i]]+s[char_index[i]];
+                }
+                ret_string = ret_string + s[int_index[(len-1)/2]];
+                return ret_string;
+            }
+            else
+            {
+                for(int i=0; i<len/2; i++)
+                {
+                    ret_string = ret_string+ s[char_index[i]]+s[int_index[i]];
+                }
+                ret_string = ret_string +s[char_index[(len-1)/2]];
+                return ret_string;
+            }
+        }
+        else
+        {
+            return "";
+        } 
+    }
+};
